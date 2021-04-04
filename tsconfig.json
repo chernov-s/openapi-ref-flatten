@@ -1,25 +1,30 @@
 {
+  "include": ["src"],
+  "exclude": ["node_modules", "**/__tests__/**"],
   "compilerOptions": {
-    "outDir": "./dist",
+    "moduleResolution": "node",
     "target": "es2020",
     "module": "commonjs",
-    "moduleResolution": "node",
-    "types": ["node"],
-    "declaration": false,
-    "declarationMap": false,
-    "sourceMap": false,
+    "lib": ["es2020"],
+    "strict": true,
+    "pretty": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowUnreachableCode": false,
+    "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
-    "strict": true,
     "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true
-  },
-  "exclude": [
-    "examples/*",
-    "tests/**/*",
-    "node_modules"
-  ]
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "resolveJsonModule": true,
+    "outDir": "dist",
+    "sourceMap": true,
+    "declaration": true,
+    "removeComments": true,
+    "skipLibCheck": true,
+    "importHelpers": true
+  }
 }

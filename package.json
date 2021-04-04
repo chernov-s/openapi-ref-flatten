@@ -1,11 +1,34 @@
 {
   "name": "openapi-ref-flatten",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.1-dev.0",
+  "description": "Parse, Flatten, and Dereference JSON Schema $ref pointers",
+  "keywords": [
+    "json-parser",
+    "json",
+    "jsonschema",
+    "json-schema",
+    "$ref",
+    "resolver",
+    "openapi",
+    "swagger",
+    "dereference",
+    "resolve"
+  ],
+  "main": "src/index.ts",
+  "author": "Chernov Sergey",
+  "contributors": [
+    {
+      "name": "Chermov Sergey",
+      "email": "chernov.net@ya.ru"
+    }
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sosed/openapi-ref-flatten/issues"
+  },
+  "homepage": "https://github.com/sosed/openapi-ref-flatten#readme",
   "scripts": {
-    "serve": "webpack-dev-server --mode=development",
-    "start": "npm run build && rimraf ./samples/generated && node ./bin/index.js --input ./samples/spec/api/pet.json --output ./samples/generated",
+    "run:samples": "npm run build && rimraf ./samples/generated && node ./bin/index.js --input ./samples/spec/api/pet.json --output ./samples/generated",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,29 +36,34 @@
     "type": "git",
     "url": "git+https://github.com/sosed/openapi-ref-flatten.git"
   },
-  "author": "Chernov Sergey",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sosed/openapi-ref-flatten/issues"
+  "files": [
+    "**/*"
+  ],
+  "engines": {
+    "node": ">=8.3.0"
   },
-  "homepage": "https://github.com/sosed/openapi-ref-flatten#readme",
   "devDependencies": {
-    "@types/lodash": "^4.14.168",
     "@types/mkdirp": "^1.0.1",
+    "@types/lodash.get": "^4.4.6",
     "@types/node": "^14.14.21",
     "@types/node-fetch": "^2.5.8",
     "@types/rimraf": "^3.0.0",
     "prettier": "^2.2.1",
     "tslint": "^6.1.3",
     "tslint-loader": "^3.5.4",
+    "commander": "^7.0.0",
+    "openapi-types": "^7.2.3",
     "typescript": "^4.1.3"
   },
   "dependencies": {
-    "commander": "^7.0.0",
-    "dependency-graph": "^0.11.0",
-    "lodash": "^4.17.21",
+    "lodash.get": "^4.4.2",
     "mkdirp": "^1.0.4",
-    "openapi-types": "^7.2.3",
     "rimraf": "^3.0.2"
+  },
+  "bin": {
+    "openapi-ref-flatten": "index.js"
+  },
+  "directories": {
+    "test": "test"
   }
 }

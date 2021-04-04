@@ -1,4 +1,4 @@
-import { extname, resolve } from "path";
+import { extname } from "path";
 import { jsonFile } from './parser/json-file';
 import { OpenAPIV3 } from 'openapi-types';
 

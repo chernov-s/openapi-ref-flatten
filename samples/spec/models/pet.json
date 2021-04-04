@@ -62,6 +62,9 @@
                     "name": {
                         "type": "string",
                         "example": "Dogs"
+                    },
+                    "user": {
+                        "$ref": "./user.json#/components/schemas/User"
                     }
                 },
                 "xml": {
@@ -98,6 +101,9 @@
                     "name": {
                         "type": "string",
                         "example": "doggie"
+                    },
+                    "user": {
+                        "$ref": "./user.json#/components/schemas/User"
                     },
                     "category": {
                         "$ref": "#/components/schemas/Category"

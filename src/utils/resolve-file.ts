@@ -4,17 +4,18 @@ import { mkdir, rmdir, writeFile } from './file-system';
 
 export async function resolveFile(
     openApi: OpenAPI.Document,
-    output: string
+    dir: string,
+    fileName: string
 ): Promise<void> {
-    const outputPath = resolve(process.cwd(), output);
+    const outputPath = resolve(process.cwd(), dir);
 
-    if (!isSubDirectory(process.cwd(), output)) {
+    if (!isSubDirectory(process.cwd(), dir)) {
         throw new Error(`Output folder is not a subdirectory of the current working directory`);
     }
     await rmdir(outputPath);
     await mkdir(outputPath);
 
-    const file = resolve(outputPath, 'test.json');
+    const file = resolve(outputPath, fileName);
 
     await writeFile(file, JSON.stringify(openApi, null, '  '));
 }
