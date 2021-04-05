@@ -1,9 +1,8 @@
 import { relative, resolve } from 'path';
-import { OpenAPI } from 'openapi-types';
-import { mkdir, rmdir, writeFile } from './file-system';
+import { mkdir, rmdir, writeFile } from '../utils/file-system';
 
 export async function resolveFile(
-    openApi: OpenAPI.Document,
+    openApi: {},
     dir: string,
     fileName: string
 ): Promise<void> {
