@@ -1,5 +1,5 @@
 {
-  "name": "@cme/openapi-ref-flatten",
+  "name": "openapi-ref-flatten",
   "version": "0.0.1",
   "description": "Parse, Flatten, and Dereference JSON Schema $ref pointers",
   "keywords": [
@@ -40,10 +40,6 @@
   ],
   "engines": {
     "node": ">=8.3.0"
-  },
-  "publishConfig": {
-    "registry": "https://npm.cm.expert/repository/cmexpert/",
-    "access": "public"
   },
   "devDependencies": {
     "@types/lodash.get": "^4.4.6",
