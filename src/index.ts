@@ -1,2 +1,2 @@
-export * from './ref-resolver';
+export { RefResolver } from './ref-resolver';
 export * from './types';

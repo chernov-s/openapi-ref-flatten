@@ -1,6 +1,6 @@
 {
   "name": "openapi-ref-flatten",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Parse, Flatten, and Dereference JSON Schema $ref pointers",
   "keywords": [
     "json-parser",
@@ -29,12 +29,15 @@
   "scripts": {
     "run:samples": "npm run build && rimraf ./samples/generated && node ./dist/cli.js --input ./samples/spec/api/pet.json --output ./samples/generated",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "tsc"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sosed/openapi-ref-flatten.git"
   },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist/"
   ],
