@@ -1,12 +1,11 @@
 import { extname } from "path";
-import { jsonFile } from './parser/json-file';
-import { OpenAPIV3 } from 'openapi-types';
+import { jsonFile } from './json-file';
 
 export class Parser {
 
-    private static cache = new Map<string, OpenAPIV3.Document>();
+    private static cache = new Map<string, {}>();
 
-    public static async parse(path: string): Promise<OpenAPIV3.Document> {
+    public static async parse(path: string): Promise<{}> {
 
         const res = this.cache.get(path);
 

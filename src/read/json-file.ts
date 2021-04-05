@@ -1,5 +1,5 @@
 import { resolve } from "path";
-import { exists, readFile } from '../../utils/file-system';
+import { exists, readFile } from '../utils/file-system';
 
 export async function jsonFile(input: string): Promise<string> {
     const filePath = resolve(process.cwd(), input);
