@@ -77,9 +77,13 @@ export class RefResolver {
 
         if (!RefHelpers.isRef(model) && model && ['boolean', 'string', 'integer'].indexOf(model.type) !== -1) {
             const res = {
+                ...partialObj,
                 ...model,
                 'x-origin-$ref': originRef
             };
+            if (res.$ref) {
+                delete res.$ref;
+            }
             RefResolver.modelCache[originRef] = res;
             return res;
         }

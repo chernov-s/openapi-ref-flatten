@@ -1,6 +1,6 @@
 {
   "name": "openapi-ref-flatten",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Parse, Flatten, and Dereference JSON Schema $ref pointers",
   "keywords": [
     "json-parser",
