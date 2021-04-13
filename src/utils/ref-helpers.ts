@@ -75,4 +75,12 @@ export class RefHelpers {
         }
         return '';
     }
+
+    public static withoutRef(obj: Record<string, safeAny>): Record<string, safeAny> {
+        const clone = {...obj};
+        if (clone.$ref) {
+            delete clone.$ref;
+        }
+        return clone;
+    }
 }

@@ -77,20 +77,20 @@ export class RefResolver {
 
         if (!RefHelpers.isRef(model) && model && ['boolean', 'string', 'integer'].indexOf(model.type) !== -1) {
             const res = {
-                ...partialObj,
+                ...RefHelpers.withoutRef(partialObj),
                 ...model,
                 'x-origin-$ref': originRef
             };
-            if (res.$ref) {
-                delete res.$ref;
-            }
             RefResolver.modelCache[originRef] = res;
             return res;
         }
 
         this.models.add(modelName);
         if (!this.schemas[modelName]) {
-            const res = await this.resolve(model, filePath);
+            const res = {
+                ...RefHelpers.withoutRef(partialObj),
+                ...await this.resolve(model, filePath),
+            };
             this.schemas[modelName] = res;
             RefResolver.modelCache[originRef] = res;
         }
