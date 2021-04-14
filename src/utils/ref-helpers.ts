@@ -83,4 +83,14 @@ export class RefHelpers {
         }
         return clone;
     }
+
+    public static isFlattenable(model: safeAny): boolean {
+        if (!model || RefHelpers.isRef(model)) {
+            return false;
+        }
+        if (model.type === 'array') {
+            return this.isFlattenable(model.items);
+        }
+        return ['boolean', 'string', 'integer'].indexOf(model.type) !== -1;
+    }
 }

@@ -16,8 +16,6 @@ export class RefResolver {
         }
     }
 
-    public static modelCache: {[key: string]: safeAny} = {};
-
     private readonly schemas: { [key: string]: safeAny };
     private readonly models = new Set<string>();
 
@@ -68,38 +66,44 @@ export class RefResolver {
         return obj;
     }
 
-    private async resoleRef(partialObj: any, filePath: string): Promise<safeAny> {
+    private async resoleRef(
+        partialObj: Record<string, safeAny> & {$ref: string},
+        filePath: string
+    ): Promise<safeAny> {
         const originRef = filePath + RefHelpers.getHash(partialObj.$ref);
         const modelName: string = RefHelpers.getModelName(partialObj.$ref);
-        const fileContent = await Parser.parse(this.options.pathResolver ? this.options.pathResolver(filePath) : filePath);
         const jsPath = RefHelpers.getJsPath(RefHelpers.getHash(partialObj.$ref));
-        const model = RefResolver.modelCache[originRef] || get(fileContent, jsPath);
 
-        if (!RefHelpers.isRef(model) && model && ['boolean', 'string', 'integer'].indexOf(model.type) !== -1) {
-            const res = {
-                ...RefHelpers.withoutRef(partialObj),
+        const fileContent = await Parser.parse(this.options.pathResolver ? this.options.pathResolver(filePath) : filePath);
+        const model = get(fileContent, jsPath);
+
+        const objWithoutRef = {
+            ...RefHelpers.withoutRef(partialObj),
+            'x-origin-$ref': originRef
+        };
+        if (RefHelpers.isFlattenable(model)) {
+            return {
                 ...model,
-                'x-origin-$ref': originRef
+                ...objWithoutRef
             };
-            RefResolver.modelCache[originRef] = res;
-            return res;
+        }
+
+        const res = await this.resolve(model, filePath);
+        if (RefHelpers.isFlattenable(res)) {
+            return {
+                ...res,
+                ...objWithoutRef,
+            };
+        }
+        if (!this.schemas[modelName]) {
+            this.schemas[modelName] = res;
         }
 
         this.models.add(modelName);
-        if (!this.schemas[modelName]) {
-            const res = {
-                ...RefHelpers.withoutRef(partialObj),
-                ...await this.resolve(model, filePath),
-            };
-            this.schemas[modelName] = res;
-            RefResolver.modelCache[originRef] = res;
-        }
-        if (RefResolver.modelCache[originRef] && !this.schemas[modelName]) {
-            this.schemas[modelName] = RefResolver.modelCache[originRef];
-        }
         return {
+            ...objWithoutRef,
             $ref: `#/components/schemas/${modelName}`,
-            'x-origin-$ref': originRef
         };
     }
+
 }
