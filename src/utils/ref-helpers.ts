@@ -1,4 +1,4 @@
-import { resolve as pathResolver } from 'url';
+import * as path from 'path';
 import { safeAny } from '../types';
 
 const jsonPointerSlash = /~1/g;
@@ -41,7 +41,7 @@ export class RefHelpers {
      */
     public static getModelName(path: string): string {
         if (!path) {
-            return 'UNRESOLED';
+            return 'UNRESOLVED';
         }
         const arr = path.split('/');
         return arr[arr.length - 1];
@@ -66,7 +66,12 @@ export class RefHelpers {
     }
 
     public static withoutHash(basePath: string, pathWithHash: string): string {
-        return pathResolver(basePath, RefHelpers.stripHash(pathWithHash));
+        const pathWithoutHash = RefHelpers.stripHash(pathWithHash);
+        if (!pathWithoutHash) {
+            return basePath;
+        }
+        const dirname = path.dirname(basePath);
+        return path.resolve(dirname, pathWithoutHash);
     }
 
     public static getOriginRef(obj: safeAny): string {
