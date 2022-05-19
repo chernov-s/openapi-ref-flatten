@@ -76,12 +76,12 @@ export class RefResolver {
 
         const fileContent = await Parser.parse(this.options.pathResolver ? this.options.pathResolver(filePath) : filePath);
         const model = get(fileContent, jsPath);
-
         const objWithoutRef = {
             ...RefHelpers.withoutRef(partialObj),
             'x-origin-$ref': originRef
         };
-        if (RefHelpers.isFlattenable(model)) {
+
+        if (RefHelpers.isForceDeref(partialObj) || RefHelpers.isFlattenable(model)) {
             return {
                 ...model,
                 ...objWithoutRef
@@ -105,5 +105,4 @@ export class RefResolver {
             $ref: `#/components/schemas/${modelName}`,
         };
     }
-
 }

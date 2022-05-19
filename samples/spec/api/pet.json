@@ -58,6 +58,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
+                                "x-force-deref": true,
                                 "$ref": "../models/pet.json#/components/schemas/Pet"
                             }
                         }

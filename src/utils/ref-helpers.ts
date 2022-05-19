@@ -3,6 +3,7 @@ import { safeAny } from '../types';
 
 const jsonPointerSlash = /~1/g;
 const jsonPointerTilde = /~0/g;
+const forceDerefFlag = 'x-force-deref';
 
 export class RefHelpers {
 
@@ -13,6 +14,10 @@ export class RefHelpers {
     public static isExternalRef(obj: {$ref?: string}): boolean {
         return RefHelpers.isRef(obj) && !!obj.$ref && obj.$ref[0] !== '#';
     }
+
+    public static isForceDeref(obj: {$ref?: string}): boolean {
+        return RefHelpers.isRef(obj) && obj[forceDerefFlag];
+    };
 
     /**
      * foo/bar.json#path/Model => foo/bar.json
